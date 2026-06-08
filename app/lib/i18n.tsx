@@ -34,6 +34,12 @@ type Dict = {
     title: string;
     steps: { title: string; text: string }[];
   };
+  tele: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    cta: string;
+  };
 };
 
 export const dict: Record<Lang, Dict> = {
@@ -102,6 +108,12 @@ export const dict: Record<Lang, Dict> = {
         },
       ],
     },
+    tele: {
+      eyebrow: "Tele Hemato",
+      title: "Suporte remoto com especialistas",
+      text: "Sem hematologistas na equipe? A TeleHemato conecta médicos a especialistas para suporte clínico imediato.",
+      cta: "Teste agora",
+    },
   },
   en: {
     nav: [
@@ -166,6 +178,12 @@ export const dict: Record<Lang, Dict> = {
           text: "Support for clinical evaluation. Receive assistive hypotheses and investigation suggestions*",
         },
       ],
+    },
+    tele: {
+      eyebrow: "Tele Hemato",
+      title: "Remote support with specialists",
+      text: "No hematologists on your team? TeleHemato connects physicians to specialists for immediate clinical support.",
+      cta: "Try now",
     },
   },
 };
