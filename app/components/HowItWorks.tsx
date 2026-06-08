@@ -64,7 +64,7 @@ export function HowItWorks() {
       </div>
 
       {/* Conteúdo (rola por cima do fundo fixo) */}
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-36 sm:py-48">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           {/* Esquerda — cabeçalho */}
           <div className="reveal-l">
