@@ -96,7 +96,7 @@ export function HowItWorks() {
                     <h3 className="font-[family-name:var(--font-display)] text-lg font-bold leading-snug text-white sm:text-xl">
                       {step.title}
                     </h3>
-                    <p className="mt-2 max-w-md text-sm leading-relaxed text-white/80">
+                    <p className="mt-2 max-w-md text-sm leading-relaxed text-white/80 [text-shadow:0_1px_6px_rgba(0,0,0,0.35)]">
                       {step.text}
                     </p>
                   </div>
