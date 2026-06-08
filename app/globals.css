@@ -5,8 +5,8 @@
   --foreground: #171717;
 
   /* Cor de destaque da marca — troque AQUI para testar outras cores */
-  --accent: #f87171;
-  --accent-hover: #ef4444;
+  --accent: #d14124;
+  --accent-hover: #b8361d;
 }
 
 @theme inline {
