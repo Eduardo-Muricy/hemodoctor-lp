@@ -18,13 +18,16 @@ export function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="absolute inset-0 -z-10 h-full w-full object-cover brightness-110 saturate-[1.25]"
       >
         <source src="/Video-hemodoctor.mp4" type="video/mp4" />
       </video>
 
-      {/* Camada 2 — overlay azul (mais forte em cima e embaixo, pra ancorar o texto) */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-950/75 via-blue-900/45 to-blue-950/80" />
+      {/* Camada 2 — máscara de cor (replica o tom azul-roxo do original) */}
+      <div className="absolute inset-0 -z-10 mix-blend-multiply" style={{ backgroundColor: "#616BCB", opacity: 0.65 }} />
+
+      {/* Camada 3 — overlay escuro nas bordas pra ancorar o texto */}
+      <div className="absolute inset-0 -z-10 bg-linear-to-b from-blue-950/40 via-transparent to-blue-950/50" />
 
       {/* Camada 3 — conteúdo */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-6 pt-28 pb-24 text-center text-white">
@@ -35,7 +38,7 @@ export function Hero() {
         </span>
 
         {/* Título */}
-        <h1 className="font-[family-name:var(--font-display)] text-4xl font-extrabold leading-[1.08] tracking-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl">
+        <h1 className="font-(family-name:--font-display) text-4xl font-extrabold leading-[1.08] tracking-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl">
           <span className="text-accent">{t.hero.titleLead}</span>{" "}
           {t.hero.titleRest}
         </h1>
