@@ -8,6 +8,7 @@ import {Solutions} from "./components/Solutions";
 import { Benefits } from "./components/Benefits";
 import { DemoForm } from "./components/DemoForm";
 import { Media } from "./components/Media";
+import { Blog } from "./components/Blog";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Benefits />
         <DemoForm />
         <Media />
+        <Blog />
       </main>
     </LanguageProvider>
   );

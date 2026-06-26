@@ -72,6 +72,17 @@ type Dict = {
     eyebrow: string;
     title: string;
   };
+  blog: {
+    eyebrow: string;
+    title: string;
+    readMore: string;
+    more: string;
+  };
+  team: {
+    eyebrow: string;
+    title: string;
+    roles: string[];
+  };
 };
 
 export const dict: Record<Lang, Dict> = {
@@ -197,6 +208,22 @@ export const dict: Record<Lang, Dict> = {
       eyebrow: "Mídia",
       title: "Destaques na imprensa",
     },
+    blog: {
+      eyebrow: "Blog",
+      title: "Inteligência diagnóstica em evolução",
+      readMore: "Ler mais",
+      more: "Ver outros conteúdos",
+    },
+    team: {
+      eyebrow: "Nossa Equipe",
+      title:
+        "Especialistas em IA, tecnologia, hematologia e gestão em saúde comprometidos em transformar o diagnóstico médico.",
+      roles: [
+        "Hematologista. Pesquisador. Especialista em oncohematologia.",
+        "Hematologista. Diretor hospitalar. Especialista em oncohematologia.",
+        "Empreendedor. Experiência em tecnologia e inovação na saúde.",
+      ],
+    },
   },
   en: {
     nav: [
@@ -318,6 +345,22 @@ export const dict: Record<Lang, Dict> = {
     media: {
       eyebrow: "Media",
       title: "Featured in the press",
+    },
+    blog: {
+      eyebrow: "Blog",
+      title: "Diagnostic intelligence in evolution",
+      readMore: "Read more",
+      more: "See more content",
+    },
+    team: {
+      eyebrow: "Our Team",
+      title:
+        "Experts in AI, technology, hematology and health management committed to transforming medical diagnosis.",
+      roles: [
+        "Hematologist. Researcher. Specialist in onco-hematology.",
+        "Hematologist. Hospital director. Specialist in onco-hematology.",
+        "Entrepreneur. Experience in technology and health innovation.",
+      ],
     },
   },
 };
