@@ -26,7 +26,7 @@ export function TeleHemato() {
 
   return (
     <section
-      id="solucoes"
+      id="telehemato"
       ref={ref}
       className={`relative overflow-hidden bg-white py-20 sm:py-28 ${
         visible ? "is-visible" : ""
@@ -58,7 +58,7 @@ export function TeleHemato() {
             </p>
             <a
               href="#demonstracao"
-              className="mt-8 inline-flex items-center justify-center rounded-full border-2 border-blue-700 px-8 py-3.5 text-base font-semibold text-blue-700 transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              className="mt-8 inline-flex items-center justify-center rounded-full border-2 border-blue-700 px-8 py-3.5 text-base font-semibold text-blue-700 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-accent hover:bg-accent hover:text-white hover:shadow-lg hover:shadow-accent/30"
             >
               {t.tele.cta}
             </a>

@@ -95,7 +95,7 @@ export function Header() {
 
             <Link
               href="#demonstracao"
-              className="ml-1 hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-hover sm:inline-flex"
+              className="ml-1 hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 sm:inline-flex"
             >
               {t.cta}
             </Link>
@@ -139,7 +139,7 @@ export function Header() {
             <Link
               href="#demonstracao"
               onClick={() => setOpen(false)}
-              className="mt-1 block rounded-2xl bg-accent px-4 py-3 text-center text-base font-semibold text-white"
+              className="mt-1 block rounded-2xl bg-accent px-4 py-3 text-center text-base font-semibold text-white transition-all duration-200 ease-out hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30"
             >
               {t.cta}
             </Link>

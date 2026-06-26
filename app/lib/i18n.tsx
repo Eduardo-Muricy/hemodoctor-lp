@@ -2,9 +2,10 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
-  useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -39,6 +40,37 @@ type Dict = {
     title: string;
     text: string;
     cta: string;
+  };
+  solutions: {
+    eyebrow: string;
+    title: string;
+    cta: string;
+    items: { title: string; text: string }[];
+  };
+  benefits: {
+    eyebrow: string;
+    title: string;
+    items: string[];
+  };
+  form: {
+    titleBefore: string;
+    titleAfter: string;
+    subtitle: string;
+    fields: {
+      name: string;
+      email: string;
+      phone: string;
+      role: string;
+      company: string;
+      segment: string;
+      message: string;
+    };
+    submit: string;
+    success: string;
+  };
+  media: {
+    eyebrow: string;
+    title: string;
   };
 };
 
@@ -114,6 +146,57 @@ export const dict: Record<Lang, Dict> = {
       text: "Sem hematologistas na equipe? A TeleHemato conecta médicos a especialistas para suporte clínico imediato.",
       cta: "Teste agora",
     },
+    solutions: {
+      eyebrow: "Soluções",
+      title: "A plataforma de inteligência artificial para diagnósticos hematológicos",
+      cta: "Descubra como podemos ajudar",
+      items: [
+        {
+          title: "Redes hospitalares e operadoras",
+          text: "Redução de custos com exames desnecessários e otimização da equipe médica.",
+        },
+        {
+          title: "Serviço Público",
+          text: "Dashboards epidemiológicos que ajudam no planejamento e combate a surtos de doenças.",
+        },
+        {
+          title: "Médicos",
+          text: "Apoio à análise de exames laboratoriais, mesmo em contextos com acesso limitado a especialistas.",
+        },
+      ],
+    },
+    benefits: {
+      eyebrow: "Benefícios",
+      title: "Tecnologia a favor da eficiência diagnóstica",
+      items: [
+        "Identifica padrões laboratoriais associados a condições hematológicas que podem exigir investigação especializada.",
+        "IA validada: discordância de apenas 1,32% entre os casos avaliados.",
+        "Apoia a triagem de casos prioritários, reduzindo o risco de atrasos assistenciais.",
+        "Tecnologia integrada ao fluxo clínico do médico, sem substituir seu julgamento profissional.",
+        "Apoio clínico mesmo em locais sem especialistas.",
+      ],
+    },
+    form: {
+      titleBefore: "Teste a",
+      titleAfter: "na sua instituição",
+      subtitle:
+        "Experimente gratuitamente e veja como a Hemodoctor pode apoiar sua rotina clínica com segurança e escala.",
+      fields: {
+        name: "Seu nome",
+        email: "E-mail",
+        phone: "Telefone",
+        role: "Cargo",
+        company: "Empresa",
+        segment: "Segmento",
+        message: "Sua mensagem",
+      },
+      submit: "Agendar Demonstração",
+      success: "Solicitação enviada! Nossa equipe entrará em contato em breve.",
+    },
+    media: {
+      eyebrow: "Mídia",
+      title: "Destaques na imprensa",
+    },
   },
   en: {
     nav: [
@@ -185,6 +268,57 @@ export const dict: Record<Lang, Dict> = {
       text: "No hematologists on your team? TeleHemato connects physicians to specialists for immediate clinical support.",
       cta: "Try now",
     },
+    solutions: {
+      eyebrow: "Solutions",
+      title: "The artificial intelligence platform for hematological diagnostics",
+      cta: "Discover how we can help",
+      items: [
+        {
+          title: "Hospital networks & payers",
+          text: "Reduced costs from unnecessary tests and a more efficient medical team.",
+        },
+        {
+          title: "Public health",
+          text: "Epidemiological dashboards that help with planning and fighting disease outbreaks.",
+        },
+        {
+          title: "Physicians",
+          text: "Support for lab test analysis, even in settings with limited access to specialists.",
+        },
+      ],
+    },
+    benefits: {
+      eyebrow: "Benefits",
+      title: "Technology for diagnostic efficiency",
+      items: [
+        "Identifies laboratory patterns associated with hematological conditions that may require specialized investigation.",
+        "Validated AI: only 1.32% discordance among evaluated cases.",
+        "Supports triage of priority cases, reducing the risk of care delays.",
+        "Technology integrated into the physician's clinical workflow, without replacing their professional judgment.",
+        "Clinical support even in places without specialists.",
+      ],
+    },
+    form: {
+      titleBefore: "Try",
+      titleAfter: "at your institution",
+      subtitle:
+        "Try it for free and see how Hemodoctor can support your clinical routine with safety and scale.",
+      fields: {
+        name: "Your name",
+        email: "E-mail",
+        phone: "Phone",
+        role: "Role",
+        company: "Company",
+        segment: "Segment",
+        message: "Your message",
+      },
+      submit: "Schedule a demo",
+      success: "Request sent! Our team will contact you shortly.",
+    },
+    media: {
+      eyebrow: "Media",
+      title: "Featured in the press",
+    },
   },
 };
 
@@ -196,26 +330,50 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("pt");
+const STORAGE_KEY = "lang";
 
-  // Restore the saved preference after mount (avoids hydration mismatch).
-  useEffect(() => {
-    const stored = localStorage.getItem("lang");
-    if (stored === "pt" || stored === "en") setLangState(stored);
+// Lê o idioma salvo (cliente). Primitivo => comparado por valor, sem loop.
+function getClientLang(): Lang {
+  try {
+    return localStorage.getItem(STORAGE_KEY) === "en" ? "en" : "pt";
+  } catch {
+    return "pt";
+  }
+}
+
+// Valor usado no servidor e na hidratação (evita mismatch).
+function getServerLang(): Lang {
+  return "pt";
+}
+
+// Avisa o React quando o idioma muda. "storage" só dispara em OUTROS tabs,
+// por isso disparamos também um evento próprio no tab atual.
+function subscribeLang(callback: () => void) {
+  window.addEventListener("lang-change", callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    window.removeEventListener("lang-change", callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  // Lê o idioma de uma fonte externa (localStorage) de forma SSR-safe,
+  // sem setState em efeito: é exatamente para isso que existe este hook.
+  const lang = useSyncExternalStore(subscribeLang, getClientLang, getServerLang);
+
+  const setLang = useCallback((next: Lang) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {}
+    window.dispatchEvent(new Event("lang-change"));
   }, []);
 
-  // Keep the document language in sync for SEO/accessibility.
+  // Efeito "do bem": atualiza um sistema externo (o atributo lang do <html>)
+  // com o estado atual — não chama setState.
   useEffect(() => {
     document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
   }, [lang]);
-
-  function setLang(next: Lang) {
-    setLangState(next);
-    try {
-      localStorage.setItem("lang", next);
-    } catch {}
-  }
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: dict[lang] }}>

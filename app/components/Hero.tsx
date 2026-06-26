@@ -52,13 +52,13 @@ export function Hero() {
         <div className="mt-9 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row">
           <a
             href="#demonstracao"
-            className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-4 text-base font-semibold text-white shadow-lg shadow-accent/30 transition-all hover:-translate-y-0.5 hover:bg-accent-hover sm:w-auto"
+            className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-4 text-base font-semibold text-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 sm:w-auto"
           >
             {t.cta}
           </a>
           <a
             href="#como-funciona"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-white/70 px-8 py-4 text-base font-semibold backdrop-blur-sm transition-colors hover:bg-white hover:text-blue-700 sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-white/70 px-8 py-4 text-base font-semibold backdrop-blur-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:text-blue-700 hover:shadow-lg hover:shadow-black/20 sm:w-auto"
           >
             {t.hero.secondary}
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
