@@ -41,8 +41,8 @@ const items = [
 ];
 
 const arrowBtn =
-  "absolute top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full " +
-  "border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-accent hover:text-accent";
+  "absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full " +
+  "border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-accent hover:text-accent sm:flex";
 
 export function Media() {
   const { t } = useLang();
@@ -86,7 +86,7 @@ export function Media() {
 
       {/* Faixa cinza com o carrossel */}
       <div className="mt-12 bg-[#ececec] py-20">
-        <div className="relative mx-auto max-w-6xl px-16">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-12 lg:px-16">
           {/* Seta esquerda */}
           <button type="button" onClick={scrollPrev} aria-label="Anterior" className={`${arrowBtn} left-2 sm:left-4`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

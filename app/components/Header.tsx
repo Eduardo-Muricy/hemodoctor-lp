@@ -3,21 +3,30 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLang } from "../lib/i18n";
 
 export function Header() {
   const { t } = useLang();
-  const [open, setOpen] = useState(false);
-  const [solid, setSolid] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
-  // Vira "sólida" (vidro branco) ao sair do hero (vídeo) e entrar nas seções claras.
+  const [open, setOpen] = useState(false);
+  // Fora da home não há hero escuro → começa (e fica) sólida.
+  const [solid, setSolid] = useState(!isHome);
+
+  // Só na home a navbar reage ao scroll (transparente sobre o vídeo → sólida).
   useEffect(() => {
+    if (!isHome) {
+      setSolid(true);
+      return;
+    }
     const onScroll = () => setSolid(window.scrollY > window.innerHeight - 90);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   // Trava o scroll do body com o menu mobile aberto
   useEffect(() => {
@@ -26,6 +35,9 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // Âncoras (#sobre) viram "/#sobre" fora da home, pra voltar e rolar.
+  const to = (href: string) => (isHome || !href.startsWith("#") ? href : `/${href}`);
 
   const pill = solid
     ? "border-slate-200 bg-white/80 text-slate-900 shadow-[0_10px_30px_-14px_rgba(0,0,0,0.25)]"
@@ -54,7 +66,7 @@ export function Header() {
 
           {/* Logo — troca claro/escuro conforme o fundo (ambos pré-carregados) */}
           <Link
-            href="#top"
+            href={isHome ? "#top" : "/"}
             className="relative z-10 flex items-center"
             aria-label="Hemodoctor — início"
           >
@@ -81,7 +93,7 @@ export function Header() {
             {t.nav.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={to(item.href)}
                 className={`rounded-full px-3.5 py-2 text-sm font-medium transition-colors ${navLink}`}
               >
                 {item.label}
@@ -94,7 +106,7 @@ export function Header() {
             <LanguageSwitcher solid={solid} />
 
             <Link
-              href="#demonstracao"
+              href={to("#demonstracao")}
               className="ml-1 hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 sm:inline-flex"
             >
               {t.cta}
@@ -127,7 +139,7 @@ export function Header() {
             {t.nav.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={to(item.href)}
                 onClick={() => setOpen(false)}
                 className={`block rounded-2xl px-4 py-3 text-base font-medium transition-colors ${
                   solid ? "text-slate-700 hover:bg-slate-100" : "text-white/90 hover:bg-white/10"
@@ -137,7 +149,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              href="#demonstracao"
+              href={to("#demonstracao")}
               onClick={() => setOpen(false)}
               className="mt-1 block rounded-2xl bg-accent px-4 py-3 text-center text-base font-semibold text-white transition-all duration-200 ease-out hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30"
             >

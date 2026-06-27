@@ -83,6 +83,25 @@ type Dict = {
     title: string;
     roles: string[];
   };
+  about: {
+    eyebrow: string;
+    title: string;
+    cta: string;
+    missionLabel: string;
+    mission: string;
+    visionLabel: string;
+    vision: string;
+    disclaimer: string;
+  };
+  footer: {
+    tagline: string;
+    nav: string;
+    contact: string;
+    address: string;
+    incubated: string;
+    rights: string;
+    privacy: string;
+  };
 };
 
 export const dict: Record<Lang, Dict> = {
@@ -224,6 +243,28 @@ export const dict: Record<Lang, Dict> = {
         "Empreendedor. Experiência em tecnologia e inovação na saúde.",
       ],
     },
+    about: {
+      eyebrow: "Quem somos",
+      title: "Tecnologia e ciência a serviço da saúde",
+      cta: "Conecte-se conosco",
+      missionLabel: "Missão",
+      mission:
+        "Democratizar o acesso à saúde de qualidade, encurtando a jornada diagnóstica com tecnologia e inteligência de dados.",
+      visionLabel: "Visão",
+      vision: "Ser a plataforma mais assertiva para suporte à saúde primária no mundo.",
+      disclaimer:
+        "*Sempre como apoio à decisão do profissional de saúde. A Hemodoctor é uma ferramenta de suporte à decisão clínica (CDSS). Não realiza diagnóstico médico, não define condutas terapêuticas e não substitui o julgamento do profissional de saúde.",
+    },
+    footer: {
+      tagline:
+        "Apoio à decisão clínica no hemograma, construído com hematologistas e IA validada.",
+      nav: "Navegação",
+      contact: "Contato",
+      address: "Av. Paulista, 1636. Conjunto 4. Pavimento 15. Bela Vista, São Paulo/SP.",
+      incubated: "Startup incubada",
+      rights: "Todos os direitos reservados.",
+      privacy: "Política de Privacidade",
+    },
   },
   en: {
     nav: [
@@ -361,6 +402,28 @@ export const dict: Record<Lang, Dict> = {
         "Hematologist. Hospital director. Specialist in onco-hematology.",
         "Entrepreneur. Experience in technology and health innovation.",
       ],
+    },
+    about: {
+      eyebrow: "About us",
+      title: "Technology and science at the service of health",
+      cta: "Connect with us",
+      missionLabel: "Mission",
+      mission:
+        "Democratize access to quality healthcare, shortening the diagnostic journey with technology and data intelligence.",
+      visionLabel: "Vision",
+      vision: "To be the world's most accurate platform for primary care support.",
+      disclaimer:
+        "*Always as support for the health professional's decision. Hemodoctor is a clinical decision support tool (CDSS). It does not perform medical diagnosis, does not define therapeutic conduct, and does not replace the health professional's judgment.",
+    },
+    footer: {
+      tagline:
+        "Clinical decision support for blood counts, built with hematologists and validated AI.",
+      nav: "Navigation",
+      contact: "Contact",
+      address: "Av. Paulista, 1636. Suite 4. Floor 15. Bela Vista, São Paulo/SP.",
+      incubated: "Incubated startup",
+      rights: "All rights reserved.",
+      privacy: "Privacy Policy",
     },
   },
 };
